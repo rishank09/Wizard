@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import "tailwindcss";
+
+/* ===== Font ===== */
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+/* ===== Theme Variables ===== */
+:root {
+  --color-primary: #6366f1;              /* Indigo / blue-violet */
+  --color-bg-dark: #0b002b;              /* Deep cosmic dark */
+  --color-bg-mid: #1e293b;               /* Dark container background */
+  --color-text-light: #f1f5f9;           /* Off-white text */
+  --color-text-muted: #94a3b8;           /* Soft gray-blue text */
+  --color-border: #334155;               /* Container borders */
+  --color-glow: rgba(99, 102, 241, 0.4); /* Glow effect */
+}
+
+/* ===== Base Layout ===== */
+html,
+body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== Primary Text Color Shortcut ===== */
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+/* ===== Glow Utility (Restore) ===== */
+.glow {
+  box-shadow: 0 0 12px var(--color-glow), 0 0 24px var(--color-glow);
+}
+
+/* ===== Hover and Button Enhancements ===== */
+button,
+a,
+div {
+  transition: all 0.25s ease-in-out;
+}
+
+button:hover,
+a:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ===== Reset Tailwind Isolation ===== */
+.reset-tw,
+.reset-tw * {
+  all: revert !important;
+}
+
+/* ===== Clerk Drawer Layer Fix ===== */
+.cl-drawerRoot {
+  z-index: 50;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ===== Animation: Float ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ===== Animation: Fade In ===== */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-in forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== Pulse Animation ===== */
+@keyframes pulse-slow {
+  0% { opacity: .18; transform: scale(1); }
+  50% { opacity: .22; transform: scale(1.01); }
+  100% { opacity: .18; transform: scale(1); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 6s infinite ease-in-out;
+}
+
+/* ===== Particle Canvas ===== */
+canvas[aria-hidden="true"] {
+  display: block;
+  pointer-events: none;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-scroll {
+  animation: scroll-left 25s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.group:hover .testimonial-scroll {
+  animation-play-state: paused;
+}

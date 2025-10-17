@@ -11,7 +11,7 @@ const app = express();
 await connectCloudinary();
 
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS.split(","),
+  origin: ["https://wizard-by-rishank-pandey.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true

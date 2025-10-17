@@ -21,6 +21,7 @@
     "fs": "^0.0.1-security",
     "multer": "^2.0.2",
     "openai": "^6.2.0",
-    "pdf-parse": "^2.3.0"
+    "pdf-parse": "^2.3.0",
+    "pdfjs-dist": "^5.4.296"
   }
 }

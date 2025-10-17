@@ -4,13 +4,14 @@ import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-//import pdf from "pdf-parse/lib/pdf-parse.js";
+import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 
 
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
 });
+
 
 
 export const generateBlogTitle = async (req, res) => {
@@ -162,13 +163,15 @@ export const resumeReview = async (req, res) => {
     const resume = req.file;
     const plan = req.plan;
 
+    // Only premium users
     if (plan !== "premium") {
       return res.json({
-        sucess: false,
+        success: false,
         message: "This feature is only available for premium subscriptions",
       });
     }
 
+    // Max file size 5MB
     if (resume.size > 5 * 1024 * 1024) {
       return res.json({
         success: false,
@@ -176,32 +179,45 @@ export const resumeReview = async (req, res) => {
       });
     }
 
-    const dataBuffer = fs.readFileSync(resume.path);
-    const pdfData = await pdf(dataBuffer);
+    // Read PDF file
+   const dataBuffer = new Uint8Array(fs.readFileSync(resume.path));
 
-    const prompt = `Review the following resume and provide constructive feedback on its strengths, 
-        weaknesses, and areas of improvement. ResumeContent:\n\n${pdfData.text}`;
 
+    // Load PDF using pdfjs-dist legacy build
+    const pdfDoc = await getDocument({ data: dataBuffer }).promise;
+
+    // Extract text from all pages
+    let fullText = "";
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      const page = await pdfDoc.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items.map(item => item.str).join(" ");
+      fullText += pageText + "\n";
+    }
+
+    // Build AI prompt
+    const prompt = `Review the following resume and provide constructive feedback on strengths, weaknesses, and areas of improvement:\n\n${fullText}`;
+
+    // Call AI model
     const response = await AI.chat.completions.create({
       model: "gemini-2.0-flash",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+      messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
       max_tokens: 1000,
     });
 
     const content = response.choices[0].message.content;
 
-    await sql` INSERT INTO creations (user_id, prompt, content, type) 
-        VALUES (${userId}, 'Review the uploaded resume', ${content}, 'resume-review')`;
+    // Save in database
+    await sql`
+      INSERT INTO creations (user_id, prompt, content, type) 
+      VALUES (${userId}, 'Review the uploaded resume', ${content}, 'resume-review')
+    `;
 
+    // Return response
     res.json({ success: true, content });
   } catch (error) {
-    console.log(error.message);
+    console.error(error);
     res.json({ success: false, message: error.message });
   }
 };

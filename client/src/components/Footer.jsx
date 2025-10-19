@@ -8,10 +8,10 @@ const Footer = () => {
                 <div className="md:max-w-96">
                     <img className="h-14 sm:h-16" src={assets.logo} alt="Logo" />
                     <p className="mt-6 text-sm">
-                        Experience the power of AI with this App. <br />
-                        Transform your content creation with our suite of premium AI tools. Write assignment,
-                        generate images, and enhance your workflow.
-                    </p>
+  Unleash the magic of AI with your personal Wizard App. <br />
+  Conjure spells to craft enchanting assignments, summon mystical images, and elevate your creative powers.
+</p>
+
                 </div>
                 <div className="flex-1 flex items-start md:justify-end gap-20">
                     <div>

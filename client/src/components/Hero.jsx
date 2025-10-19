@@ -21,16 +21,15 @@ const Hero = () => {
 
       {/* Text Content */}
       <div className="relative z-10 flex-1 text-center lg:text-left mt-16 sm:mt-20 lg:mt-0">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-semibold leading-tight mx-auto lg:mx-0 px-2">
-          Summon your creativity <br />
-          <span className="text-[#9b59b6]">with Vidi the Wizard</span>
-        </h1>
+         <h1 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-semibold leading-tight mx-auto lg:mx-0 px-2">
+    Unleash <br />your imagination <br />
+    <span className="text-[#9b59b6]">with Vidi the Wizard</span>
+  </h1>
 
-        <p className="mt-4 max-w-xs sm:max-w-md md:max-w-lg m-auto lg:m-0 text-sm sm:text-base text-gray-400 px-3">
-          Speak your wish and Vidi will cast the spell. Generate articles,
-          create magical images, remove backgrounds, and transform your ideas
-          effortlessly.
-        </p>
+  <p className="mt-4 max-w-xs sm:max-w-md md:max-w-lg m-auto lg:m-0 text-sm sm:text-base text-gray-400 px-3">
+    Whisper your command and watch Vidi conjure wonders — craft stories,
+    summon images, vanish backgrounds, and weave your creative magic with ease.
+  </p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4 mt-8 px-3">

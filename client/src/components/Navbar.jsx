@@ -13,7 +13,7 @@ const Navbar = () => {
   const menuItems = [
     { name: 'Home', path: '/' },
     { name: 'Tools', path: '/ai' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Contact Us'},
   ];
 
   const handleNavigate = (item) => {

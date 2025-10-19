@@ -16,12 +16,13 @@ const AiTools = () => {
       {/* Content */}
       <div className="relative z-10 text-center">
         <h2 className="text-[38px] sm:text-[42px] font-semibold text-gray-100">
-          Powerful <span className="text-primary">AI Tools</span>
-        </h2>
-        <p className="text-gray-400 max-w-lg mx-auto mt-3">
-          Everything you need to create, enhance, and optimize your content with
-          cutting-edge AI technology.
-        </p>
+  Enchanted <span className="text-primary">AI Spells</span>
+</h2>
+<p className="text-gray-400 max-w-lg mx-auto mt-3">
+  Step into Vidi’s workshop of wonders — a realm where every spell turns your
+  ideas into art, stories, and magic powered by AI.
+</p>
+
       </div>
 
       {/* Tool Cards */}

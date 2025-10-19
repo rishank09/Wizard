@@ -31,7 +31,7 @@ const RemoveBackground = () => {
     try {
       setLoading(true);
       const token = await getToken();
-      const { data } = await axios.post("/api/ai/remove-bg", formData, {
+      const { data } = await axios.post("/api/ai/remove-image-background", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

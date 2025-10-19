@@ -13,6 +13,8 @@ import WriteAssignment from './pages/WriteAssignment'
 import { useAuth } from '@clerk/clerk-react'
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
+import ContractInsights from './pages/ContractInsights'
+import CreateCaption from './pages/CreateCaption'
 
 const App = () => {
 
@@ -36,6 +38,9 @@ const App = () => {
           <Route path="remove-background" element={<RemoveBackground />} />
           <Route path="remove-object" element={<RemoveObject />} />
           <Route path="review-resume" element={<ReviewResume />} />
+          <Route path="contract-insights" element={<ContractInsights />} />
+          <Route path="create-caption" element={<CreateCaption />} />
+          
         <Route path="community" element={<Community />} />
         </Route>
       </Routes>

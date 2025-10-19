@@ -274,3 +274,122 @@ export const generateAssignment = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+
+export const contractInsights = async (req, res) => {
+  try {
+    const { userId } = req.auth();
+    const resume = req.file;
+    const plan = req.plan;
+
+    // Only premium users
+    if (plan !== "premium") {
+      return res.json({
+        success: false,
+        message: "This feature is only available for premium subscriptions",
+      });
+    }
+
+    // Max file size 5MB
+    if (resume.size > 5 * 1024 * 1024) {
+      return res.json({
+        success: false,
+        message: "Contract file size exceeds allowed size (5MB).",
+      });
+    }
+
+    // Read PDF file
+    const dataBuffer = new Uint8Array(fs.readFileSync(resume.path));
+
+    // Load PDF
+    const pdfDoc = await getDocument({ data: dataBuffer }).promise;
+
+    // Extract text from all pages
+    let fullText = "";
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      const page = await pdfDoc.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items.map(item => item.str).join(" ");
+      fullText += pageText + "\n";
+    }
+
+    // AI prompt for contract analysis
+    const prompt = `You're a legal assistant. Analyze the following contract and provide:
+1. A clear summary in plain English
+2. Key clauses (e.g., payment, obligations, termination)
+3. Any potential risks or red flags users should be aware of.
+
+Contract Text:
+${fullText}`;
+
+    // Call AI model
+    const response = await AI.chat.completions.create({
+      model: "gemini-2.0-flash",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.5,
+      max_tokens: 1500,
+    });
+
+    const content = response.choices[0].message.content;
+
+    // Save in database
+    await sql`
+      INSERT INTO creations (user_id, prompt, content, type) 
+      VALUES (${userId}, 'Analyze uploaded contract', ${content}, 'contract-insights')
+    `;
+
+    // Send response
+    res.json({ success: true, content });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+
+export const generateCaption = async (req, res) => {
+  try {
+    const { userId } = req.auth();
+    const { prompt } = req.body;
+    const plan = req.plan;
+    const free_usage = req.free_usage;
+
+    // Limit check for free users
+    if (plan !== "premium" && free_usage >= 10) {
+      return res.json({
+        success: false,
+        message: "Free usage limit exceeded. Upgrade to continue.",
+      });
+    }
+
+    // AI model call to generate caption
+    const response = await AI.chat.completions.create({
+      model: "gemini-2.0-flash",
+      messages: [{ role: "user", content: `Write a creative caption for: ${prompt}` }],
+      temperature: 0.8,
+      max_tokens: 60,
+    });
+
+    const content = response.choices[0].message.content;
+
+    // Save to DB
+    await sql`
+      INSERT INTO creations (user_id, prompt, content, type)
+      VALUES (${userId}, ${prompt}, ${content}, 'caption')
+    `;
+
+    // Update free usage count
+    if (plan !== "premium") {
+      await clerkClient.users.updateUserMetadata(userId, {
+        privateMetadata: {
+          free_usage: free_usage + 1,
+        },
+      });
+    }
+
+    res.json({ success: true, content });
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};

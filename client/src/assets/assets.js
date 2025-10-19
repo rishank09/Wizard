@@ -5,10 +5,11 @@ import star_icon from "./star_icon.svg";
 import star_dull_icon from "./star_dull_icon.svg";
 import profile_img_1 from "./profile_img_1.png";
 import arrow_icon from "./arrow_icon.svg";
-import { SquarePen, Hash, Image, Eraser, Scissors, FileText } from 'lucide-react'
+import { SquarePen, Hash, Image, Eraser, Scissors, FileText , MailPlus, Type} from 'lucide-react'
 import skybg from "./skybg.png";
 import vidi from "./vidi.png"
 import sky from "./sky.png";
+
 
 export const assets = {
     logo,
@@ -65,7 +66,32 @@ export const AiToolsData = [
         Icon: FileText,
         bg: { from: '#12B7AC', to: '#08B6CE' },
         path: '/ai/review-resume'
-    }
+    },
+    {
+        title: 'Contract Insights',
+        description: 'Analyze and extract key insights from contracts using our AI-powered tool.',
+        Icon: FileText,
+        bg: { from: '#FF6A00', to: '#FF8C00' },
+        path: '/ai/contract-insights'
+    },
+    {
+    title: 'Caption Creator',
+    description: 'Generate attention-grabbing captions for Instagram, YouTube, or any platform with the right tone and hashtags.',
+    Icon: Type,
+    bg: { from: '#EC4899', to: '#F472B6' },
+    path: '/ai/create-caption'
+    
+},
+    {
+    title: 'Email Writer',
+    description: 'Craft professional, persuasive, or friendly emails instantly using AI tailored to your tone and purpose.',
+    Icon: MailPlus,
+    bg: { from: '#6366F1', to: '#8B5CF6' },
+   path: '/ai/create-caption'
+}
+
+
+
 ]
 
 export const dummyTestimonialData = [

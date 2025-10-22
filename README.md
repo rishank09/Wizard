@@ -88,32 +88,6 @@ From writing assignments and generating captions to editing images and analyzing
 🌍 Community
 
 
-🚀 Getting Started
-1️⃣ Clone the Repository
-git clone https://github.com/rishank09/wizard.git
-cd wizard
-
-2️⃣ Install Dependencies
-npm install
-
-3️⃣ Create Environment File
-
-Create a .env file in the root directory and add your credentials:
-
-VITE_CLERK_PUBLISHABLE_KEY=your_key
-VITE_BACKEND_URL=your_backend_url
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_CLOUD_NAME=your_name
-OPENAI_API_KEY=your_key
-DATABASE_URL=your_neon_postgres_url
-
-4️⃣ Run the App
-npm run dev
-
-
-Your wizard is now alive ✨
-Visit http://localhost:5173
- to start creating magic!
 
 📸 Preview
 

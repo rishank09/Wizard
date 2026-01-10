@@ -28,7 +28,7 @@ From writing assignments and generating captions to editing images and analyzing
 - 🧭 **Dashboard:** Centralized access to all AI tools.  
 - 💬 **Community:** Connect and collaborate with other creators.  
 - 📱 **Responsive Design:** Works seamlessly across all devices.  
-- ⚡ **Real-time Processing:** Instant AI results powered by modern APIs.
+- ⚡ **Real-time Processing:** Instant AI results powered by modern API
 
 ---
 

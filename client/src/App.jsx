@@ -15,6 +15,9 @@ import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import ContractInsights from './pages/ContractInsights'
 import CreateCaption from './pages/CreateCaption'
+import YouTubeSummarizer from './pages/YouTubeSummarizer'
+import CodeExplainer from './pages/CodeExplainer'
+import QRCodeGenerator from './pages/QRCodeGenerator'
 
 const App = () => {
 
@@ -40,6 +43,9 @@ const App = () => {
           <Route path="review-resume" element={<ReviewResume />} />
           <Route path="contract-insights" element={<ContractInsights />} />
           <Route path="create-caption" element={<CreateCaption />} />
+          <Route path="youtube-summarizer" element={<YouTubeSummarizer />} />
+          <Route path="code-explainer" element={<CodeExplainer />} />
+          <Route path="qr-code-generator" element={<QRCodeGenerator />} />
           
         <Route path="community" element={<Community />} />
         </Route>

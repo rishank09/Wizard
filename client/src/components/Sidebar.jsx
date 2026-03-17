@@ -1,7 +1,7 @@
 import { Protect, useClerk, useUser } from '@clerk/clerk-react';
 import {
   Eraser, FileText, Hash, House, Image, LogOut, Scissors,
-  SquarePen, Users , Megaphone
+  SquarePen, Users , Megaphone, Video, Code, QrCode
 } from 'lucide-react';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -18,6 +18,9 @@ const navItems = [
   { to: '/ai/contract-insights', lable: 'Contract Insights', Icon: FileText },
   { to: '/ai/review-resume', lable: 'Review Resume', Icon: FileText },
    { to: '/ai/blog-titles', lable: 'Blog Titles', Icon: Hash },
+  { to: '/ai/youtube-summarizer', lable: 'YouTube Summarizer', Icon: Video },
+  { to: '/ai/code-explainer', lable: 'Code Explainer', Icon: Code },
+  { to: '/ai/qr-code-generator', lable: 'QR Code Generator', Icon: QrCode },
   { to: '/ai/community', lable: 'Community', Icon: Users },
   
 ];

@@ -14,6 +14,9 @@ From writing assignments and generating captions to editing images and analyzing
 - 📝 **Write Assignment:** Generate complete assignments by providing a topic and length.
 - 🪶 **Create Caption:** Generate engaging captions for social media, brands, or creative posts.
 - 📰 **Generate Blog Titles:** Create catchy blog titles from a keyword and category.
+- 🎬 **YouTube Summarizer:** Extract and summarize YouTube video content using AI.
+- 💻 **Code Explainer:** Get detailed explanations, complexity analysis, and optimization suggestions for your code.
+- 📱 **QR Code Generator:** Create custom QR codes with colors and sizes for any text or URL.
 - 🖼️ **Generate Images:** Turn your text prompts into stunning visuals.
 - 🧩 **Remove Background:** Upload an image and get a transparent background instantly.
 - 🪄 **Remove Object:** Remove unwanted objects from your images easily.
@@ -79,6 +82,9 @@ From writing assignments and generating captions to editing images and analyzing
 📂 Dashboard  
 📝 Write Assignment  
 🪶 Create Caption  
+🎬 YouTube Summarizer
+💻 Code Explainer
+📱 QR Code Generator
 🖼️ Generate Images  
 🧩 Remove Background  
 🪄 Remove Object  

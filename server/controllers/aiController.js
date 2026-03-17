@@ -1,16 +1,12 @@
-import OpenAI from "openai";
 import sql from "../configs/db.js";
 import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import { Groq } from "groq-sdk";
 
-
-const AI = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-});
+const AI = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 
 
@@ -29,10 +25,8 @@ export const generateBlogTitle = async (req, res) => {
     }
 
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
-      max_tokens: 100,
     });
     const content = response.choices[0].message.content;
 
@@ -200,12 +194,9 @@ export const resumeReview = async (req, res) => {
 
     // Call AI model
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
-      max_tokens: 1000,
     });
-
     const content = response.choices[0].message.content;
 
     // Save in database
@@ -224,42 +215,26 @@ export const resumeReview = async (req, res) => {
 
 
 export const generateAssignment = async (req, res) => {
-  try {
+ try {
     const { userId } = req.auth();
     const { prompt, length } = req.body;
     const plan = req.plan;
     const free_usage = req.free_usage;
 
-    // Check free plan limit
-    if (plan !== "premium" && free_usage >= 6) {
+    if (plan !== "premium" && free_usage >= 10) {
       return res.json({
         success: false,
         message: "Free usage limit exceeded. Upgrade to continue.",
       });
     }
 
-    // AI logic to generate an assignment instead of an article
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.7,
-      max_tokens: length,
+      model: "llama-3.1-8b-instant",
+      messages: [{ role: "user", content: prompt }],
     });
-
     const content = response.choices[0].message.content;
+    await sql`INSERT INTO creations (user_id,prompt,content,type) VALUES (${userId},${prompt},${content},'article')`;
 
-    // Save assignment in DB
-    await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
-      VALUES (${userId}, ${prompt}, ${content}, 'assignment')
-    `;
-
-    // Update free usage for non-premium users
     if (plan !== "premium") {
       await clerkClient.users.updateUserMetadata(userId, {
         privateMetadata: {
@@ -267,7 +242,6 @@ export const generateAssignment = async (req, res) => {
         },
       });
     }
-
     res.json({ success: true, content });
   } catch (error) {
     console.error(error.message);
@@ -324,12 +298,9 @@ ${fullText}`;
 
     // Call AI model
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.5,
-      max_tokens: 1500,
     });
-
     const content = response.choices[0].message.content;
 
     // Save in database
@@ -364,12 +335,9 @@ export const generateCaption = async (req, res) => {
 
     // AI model call to generate caption
     const response = await AI.chat.completions.create({
-      model: "gemini-2.0-flash",
+      model: "llama-3.1-8b-instant",
       messages: [{ role: "user", content: `Write a creative caption for: ${prompt}` }],
-      temperature: 0.8,
-      max_tokens: 60,
     });
-
     const content = response.choices[0].message.content;
 
     // Save to DB

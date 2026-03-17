@@ -5,6 +5,9 @@ import { clerkMiddleware, requireAuth } from "@clerk/express";
 import aiRouter from "./routes/aiRoutes.js";
 import connectCloudinary from "./configs/cloudinary.js";
 import userRouter from "./routes/userRoutes.js";
+import youtubeRouter from "./routes/youtubeRoutes.js";
+import codeRouter from "./routes/codeRoutes.js";
+import qrCodeRouter from "./routes/qrCodeRoutes.js";
 
 const app = express();
 
@@ -32,6 +35,9 @@ app.use(requireAuth());
 
 app.use("/api/ai", aiRouter);
 app.use('/api/user', userRouter);
+app.use("/api/youtube", youtubeRouter);
+app.use("/api/code", codeRouter);
+app.use("/api/qrcode", qrCodeRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

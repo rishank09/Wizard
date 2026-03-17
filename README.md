@@ -24,6 +24,17 @@ From writing assignments and generating captions to editing images and analyzing
 - 📑 **Contract Insights:** Get key insights from uploaded contract or document files.
 - 🌍 **Community:** Share, explore, and get inspired by other users’ magical creations.
 
+<img width="1920" height="1080" alt="Screenshot from 2026-03-17 11-18-45" src="https://github.com/user-attachments/assets/c445a071-96fa-4c25-a82f-33efb1890b51" />
+
+
+<img width="1920" height="1080" alt="Screenshot from 2026-03-17 11-16-38" src="https://github.com/user-attachments/assets/01553f73-a78f-4b26-b8cb-6337eb13ad4b" />
+
+
+
+<img width="1920" height="1080" alt="Screenshot from 2026-03-17 11-14-19" src="https://github.com/user-attachments/assets/ad963329-733c-41fd-a2c6-2faf2c20b9a8" />
+
+
+
 ---
 
 ## 👤 User Experience
